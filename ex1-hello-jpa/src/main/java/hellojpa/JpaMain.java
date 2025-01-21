@@ -2,6 +2,7 @@ package hellojpa;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -17,6 +18,11 @@ public class JpaMain {
 
         // code
         try {
+
+            Member member = new Member();
+            member.setUsername("user1");
+            member.setCreatedBy("kim");
+            member.setCreateDate(LocalDateTime.now());
             Movie movie = new Movie();
             movie.setDirector("aaa");
             movie.setActor("bbb");
