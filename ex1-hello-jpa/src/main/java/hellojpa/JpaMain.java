@@ -17,26 +17,17 @@ public class JpaMain {
 
         // code
         try {
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
+            Movie movie = new Movie();
+            movie.setDirector("aaa");
+            movie.setActor("bbb");
+            movie.setName("movieName");
+            movie.setPrice(10000);
+            em.persist(movie);
 
-            Member member = new Member();
-            member.setUsername("member1");
-//            member.changeTeam(team);
-//            member.setTeamId(team.getId());
-            em.persist(member);
-
-            team.addMember(member);
-//            team.getMembers().add(member);
-            em.flush(); // 영속성 컨텍스트에 있는 쿼리를 디비에 날린후
-            em.clear(); // 싱크 초기화 하면 디비에서 가져오는 쿼리를 확인할수 있다.
-
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> members = findTeam.getMembers();
-            for (Member m : members) {
-                System.out.println("m.getUsername() = " + m.getUsername());
-            }
+            em.flush();
+            em.clear();
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie);
 
             tx.commit();
         } catch (Exception e) {
