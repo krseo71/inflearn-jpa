@@ -17,28 +17,19 @@ public class JpaMain {
 
         // code
         try {
-            //등록
-//            Member member = new Member();
-//            member.setId(2L);
-//            member.setName("helloB");
-//            em.persist(member);
 
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            // 조회
-            Member findMember = em.find(Member.class, 1L);
-            System.out.println("findMember.getId() = " + findMember.getId());
-//            System.out.println("findMember.getName() = " + findMember.getName());
-            // 수정
-//            findMember.setName("helloJPA");
+            Member member = new Member();
+            member.setUsername("member1");
+            member.setTeamId(team.getId());
+            em.persist(member);
 
-            //삭제
-            em.remove(findMember);
-
-            // jpql
-            // 테이블 대상으로 쿼리를 짜는게 아니고 객체를 대상으로
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .getResultList();
-
+            Member findMember = em.find(Member.class, member.getId());
+            Long findTeamId = findMember.getTeamId();
+            Team findTeam = em.find(Team.class, findTeamId);
 
             tx.commit();
         } catch (Exception e) {
