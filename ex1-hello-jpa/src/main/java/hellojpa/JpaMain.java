@@ -17,24 +17,26 @@ public class JpaMain {
 
         // code
         try {
-
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team);
 
+            Member member = new Member();
+            member.setUsername("member1");
+//            member.changeTeam(team);
+//            member.setTeamId(team.getId());
+            em.persist(member);
+
+            team.addMember(member);
+//            team.getMembers().add(member);
             em.flush(); // 영속성 컨텍스트에 있는 쿼리를 디비에 날린후
             em.clear(); // 싱크 초기화 하면 디비에서 가져오는 쿼리를 확인할수 있다.
 
-            Member member = new Member();
-            member.setUsername("member1");
-//            member.setTeamId(team.getId());
-            member.setTeam(team);
-            em.persist(member);
-
-            Member findMember = em.find(Member.class, member.getId());
-//            Long findTeamId = findMember.getTeamId();
-//            Team findTeam = em.find(Team.class, findTeamId);
-            Team findTeam = findMember.getTeam();
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> members = findTeam.getMembers();
+            for (Member m : members) {
+                System.out.println("m.getUsername() = " + m.getUsername());
+            }
 
             tx.commit();
         } catch (Exception e) {
