@@ -3,11 +3,11 @@ package hellojpa;
 import jakarta.persistence.*;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn(name = "TYPE")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Item {
+@DiscriminatorColumn(name = "TYPE")
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Item extends BaseEntity{
 
     @Id @GeneratedValue
     private Long id;
